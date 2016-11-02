@@ -30,6 +30,7 @@ RUN  apt-get update -qq \
       git \
       curl \
       make \
+      build-essential g++ \
   && apt-get clean -qq \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
