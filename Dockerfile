@@ -64,8 +64,7 @@ RUN curl -O http://ftp.ruby-lang.org/pub/ruby/$RUBY_MAJOR/ruby-$RUBY_VERSION.tar
     echo 'gem: --no-document' > /usr/local/etc/gemrc
 
 ## Rubygems and Bundler
-ENV RUBYGEMS_MAJOR 2.3
-ENV RUBYGEMS_VERSION 2.3.0
+ENV RUBYGEMS_VERSION 2.2.5
 
 ADD http://production.cf.rubygems.org/rubygems/rubygems-$RUBYGEMS_VERSION.tgz /tmp/
 RUN cd /tmp && \
