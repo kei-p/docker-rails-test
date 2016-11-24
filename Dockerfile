@@ -1,8 +1,10 @@
 FROM ubuntu:14.04
 MAINTAINER kei-p "muddyapesjm66@gmail.com"
 
+RUN rm -vf /var/lib/apt/lists/*
+
 ## Install Web Packages
-RUN  apt-get update -qq \
+RUN apt-get update -qq \
   && apt-get install -y -qq \
       wget \
       autoconf \
@@ -74,3 +76,20 @@ RUN cd /tmp && \
     ruby setup.rb && \
     /bin/bash -l -c 'gem install bundler --no-rdoc --no-ri' && \
     echo "gem: --no-ri --no-rdoc" > ~/.gemrc
+
+## Phantom-js
+RUN apt-get install -y -qq \
+    chrpath \
+    libxft-dev \
+    libfreetype6 \
+    libfreetype6-dev \
+    libfontconfig1 \
+    libfontconfig1-dev
+RUN cd /tmp && \
+  export PHANTOM_JS='phantomjs-2.1.1-linux-x86_64' && \
+  wget https://github.com/Medium/phantomjs/releases/download/v2.1.1/$PHANTOM_JS.tar.bz2 && \
+  tar xvjf $PHANTOM_JS.tar.bz2 && \
+  mv $PHANTOM_JS /usr/local/share && \
+  ln -sf /usr/local/share/$PHANTOM_JS/bin/phantomjs /usr/local/bin
+
+RUN echo fs.inotify.max_user_watches=1048576 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
